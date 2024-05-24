@@ -2,31 +2,23 @@ import { useCallback, useEffect, useReducer } from "react";
 import "./App.css";
 import CategoryList from "./components/CategoryList";
 import FoodList from "./components/FoodList";
-import { fetchCategories, fetchFoods } from "./api/api-calls";
 import {
   appReducer,
-  categoriesFetched,
   categorySelected,
   foodPageSelected,
   initialAppState,
-  pagedFoodsFetched,
 } from "./state";
+import { loadCategories, loadFoods } from "./services/food.service";
 
 function App() {
   const [appState, dispatch] = useReducer(appReducer, initialAppState);
 
   useEffect(() => {
-    fetchCategories().then((result) => {
-      dispatch(categoriesFetched(result));
-    });
+    loadCategories(dispatch);
   }, []);
 
   useEffect(() => {
-    fetchFoods(appState.selectedCategoryId, appState.selectedPage, 10).then(
-      (result) => {
-        dispatch(pagedFoodsFetched(result));
-      }
-    );
+    loadFoods(dispatch, appState);
   }, [appState.selectedCategoryId, appState.selectedPage]);
 
   const onCategorySelected = useCallback(
@@ -40,7 +32,9 @@ function App() {
     <div className="App">
       <CategoryList
         categories={appState.categories}
+        hasError={appState.isCategoriesCallFailed}
         onCategorySelected={onCategorySelected}
+        onRetry={() => loadCategories(dispatch)}
       />
 
       <FoodList pagedFoods={appState.foods} onSetPage={onPageSelected} />

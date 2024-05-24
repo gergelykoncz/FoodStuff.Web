@@ -5,6 +5,8 @@ export interface AppState {
   foods: PagedFoodDto;
   selectedCategoryId: number;
   selectedPage: number;
+  isCategoriesCallFailed: boolean;
+  isFoodsCallFailed: boolean;
 }
 
 export const initialAppState: AppState = {
@@ -17,4 +19,6 @@ export const initialAppState: AppState = {
   },
   selectedCategoryId: 1,
   selectedPage: 0,
+  isCategoriesCallFailed: false,
+  isFoodsCallFailed: false,
 };

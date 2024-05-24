@@ -10,18 +10,20 @@ export type ActionTypes =
   | "CATEGORIES_FETCHED"
   | "CATEGORY_SELECTED"
   | "PAGED_FOODS_FETCHED"
-  | "FOOD_PAGE_SELECTED";
+  | "FOOD_PAGE_SELECTED"
+  | "CATEGORIES_CALL_FAILED"
+  | "FOODS_CALL_FAILED";
 
 export const categoriesFetched = (
   categories: FoodCategoryDto[]
 ): AppAction => ({
   type: "CATEGORIES_FETCHED",
-  payload: { categories },
+  payload: { categories, isCategoriesCallFailed: false },
 });
 
 export const pagedFoodsFetched = (foods: PagedFoodDto): AppAction => ({
   type: "PAGED_FOODS_FETCHED",
-  payload: { foods },
+  payload: { foods, isFoodsCallFailed: false },
 });
 
 export const categorySelected = (selectedCategoryId: number): AppAction => ({
@@ -29,6 +31,20 @@ export const categorySelected = (selectedCategoryId: number): AppAction => ({
   payload: {
     selectedCategoryId,
     selectedPage: 0,
+  },
+});
+
+export const categoriesCallFailed = (): AppAction => ({
+  type: "CATEGORIES_CALL_FAILED",
+  payload: {
+    isCategoriesCallFailed: true,
+  },
+});
+
+export const foodsCallFailed = (): AppAction => ({
+  type: "FOODS_CALL_FAILED",
+  payload: {
+    isFoodsCallFailed: true,
   },
 });
 
