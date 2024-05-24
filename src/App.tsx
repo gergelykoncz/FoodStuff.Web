@@ -1,54 +1,49 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useReducer } from "react";
 import "./App.css";
 import CategoryList from "./components/CategoryList";
 import FoodList from "./components/FoodList";
-import { FoodCategoryDto, PagedFoodDto } from "./types";
 import { fetchCategories, fetchFoods } from "./api/api-calls";
+import {
+  appReducer,
+  categoriesFetched,
+  categorySelected,
+  foodPageSelected,
+  initialAppState,
+  pagedFoodsFetched,
+} from "./state/app.reducer";
 
 function App() {
-  const [categories, setCategories] = useState<FoodCategoryDto[]>([]);
-  const [pagedFoods, setPagedFoods] = useState<PagedFoodDto>({
-    foods: [],
-    count: 0,
-    currentPage: 0,
-    pageSize: 10
-  } as PagedFoodDto);
-  const [categoryId, setCategoryId] = useState(1);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [appState, dispatch] = useReducer(appReducer, initialAppState);
 
   useEffect(() => {
     fetchCategories().then((result) => {
-      setCategories(result)
+      dispatch(categoriesFetched(result));
     });
   }, []);
 
   useEffect(() => {
-    fetchFoods(categoryId, currentPage, 10).then(result => {
-      setPagedFoods(result)
-    })
-  }, [categoryId, currentPage]);
+    fetchFoods(appState.selectedCategoryId, appState.selectedPage, 10).then(
+      (result) => {
+        dispatch(pagedFoodsFetched(result));
+      }
+    );
+  }, [appState.selectedCategoryId, appState.selectedPage]);
 
   const onCategorySelected = useCallback(
-    (e: number) => {
-      setCategoryId(e);
-      setCurrentPage(0);
-    },
-    [categories]
+    (e: number) => dispatch(categorySelected(e)),
+    [appState.categories]
   );
 
-  const onPageSelected = (e: number) => {
-    const page = Math.max(0, e);
-    setCurrentPage(page);
-  };
+  const onPageSelected = (e: number) => dispatch(foodPageSelected(e));
 
   return (
     <div className="App">
       <CategoryList
-        categories={categories}
+        categories={appState.categories}
         onCategorySelected={onCategorySelected}
       />
 
-      <FoodList pagedFoods={pagedFoods} onSetPage={onPageSelected} />
+      <FoodList pagedFoods={appState.foods} onSetPage={onPageSelected} />
     </div>
   );
 }
