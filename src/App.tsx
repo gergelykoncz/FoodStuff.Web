@@ -37,7 +37,11 @@ function App() {
         onRetry={() => loadCategories(dispatch)}
       />
 
-      <FoodList pagedFoods={appState.foods} onSetPage={onPageSelected} />
+      <FoodList
+        hasError={appState.isFoodsCallFailed}
+        pagedFoods={appState.foods}
+        onSetPage={onPageSelected}
+      />
     </div>
   );
 }

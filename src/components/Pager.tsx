@@ -3,14 +3,20 @@ type PagerProps = {
   currentPage: number;
   pageSize: number;
   onSetPage: (e: number) => void;
-}
+};
 
-export default function Pager({ count, currentPage, pageSize, onSetPage }: PagerProps) {
+export default function Pager({
+  count,
+  currentPage,
+  pageSize,
+  onSetPage,
+}: PagerProps) {
   const numberOfPages = Math.ceil(count / pageSize);
   const pageArray = new Array(numberOfPages).fill(0);
   return (
     <div className="pager">
       <button
+        data-testid="pager-previous"
         disabled={currentPage === 0}
         onClick={() => onSetPage(currentPage - 1)}
       >
@@ -18,6 +24,7 @@ export default function Pager({ count, currentPage, pageSize, onSetPage }: Pager
       </button>
       {pageArray.map((_, i) => (
         <div
+          data-testid="pager-page-item"
           className={currentPage === i ? "selected" : ""}
           key={i}
           onClick={() => onSetPage(i)}
@@ -26,6 +33,7 @@ export default function Pager({ count, currentPage, pageSize, onSetPage }: Pager
         </div>
       ))}
       <button
+        data-testid="pager-next"
         disabled={numberOfPages <= currentPage + 1}
         onClick={() => onSetPage(currentPage + 1)}
       >
