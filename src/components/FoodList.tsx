@@ -23,14 +23,18 @@ export default function FoodList({
       ) : (
         <>
           {pagedFoods.foods.map((f) => (
-            <div key={f.id}>{f.name}</div>
+            <div data-testid="food-list-item" key={f.id}>
+              {f.name}
+            </div>
           ))}
-          <Pager
-            count={pagedFoods.count}
-            currentPage={pagedFoods.currentPage}
-            pageSize={10}
-            onSetPage={onSetPage}
-          />
+          <div data-testid="food-list-pager">
+            <Pager
+              count={pagedFoods.count}
+              currentPage={pagedFoods.currentPage}
+              pageSize={10}
+              onSetPage={onSetPage}
+            />
+          </div>
         </>
       )}
     </div>

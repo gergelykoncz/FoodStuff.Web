@@ -1,4 +1,4 @@
-import { render, fireEvent, createEvent } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import Pager from "./Pager";
 
 describe("Pager", () => {
