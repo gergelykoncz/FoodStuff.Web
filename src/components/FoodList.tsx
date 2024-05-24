@@ -7,24 +7,32 @@ type FoodListProps = {
   onSetPage: (e: number) => void;
 };
 
-function FoodList({ pagedFoods, hasError, onSetPage }: FoodListProps) {
+export default function FoodList({
+  pagedFoods,
+  hasError,
+  onSetPage,
+}: FoodListProps) {
   return (
     <div className="food-list">
       <h3>Foods</h3>
 
       {hasError ? (
-        <div>There was an error retrieving the food items</div>
+        <div data-testid="food-list-error">
+          There was an error retrieving the food items
+        </div>
       ) : (
-        pagedFoods.foods.map((f) => <div key={f.id}>{f.name}</div>)
+        <>
+          {pagedFoods.foods.map((f) => (
+            <div key={f.id}>{f.name}</div>
+          ))}
+          <Pager
+            count={pagedFoods.count}
+            currentPage={pagedFoods.currentPage}
+            pageSize={10}
+            onSetPage={onSetPage}
+          />
+        </>
       )}
-      <Pager
-        count={pagedFoods.count}
-        currentPage={pagedFoods.currentPage}
-        pageSize={10}
-        onSetPage={onSetPage}
-      />
     </div>
   );
 }
-
-export default FoodList;
