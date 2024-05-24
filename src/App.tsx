@@ -10,7 +10,7 @@ import {
   foodPageSelected,
   initialAppState,
   pagedFoodsFetched,
-} from "./state/app.reducer";
+} from "./state";
 
 function App() {
   const [appState, dispatch] = useReducer(appReducer, initialAppState);
