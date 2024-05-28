@@ -1,4 +1,4 @@
-import { fetchCategories, fetchFoods } from "../api/api-calls";
+import { fetchCategories, fetchFoodsByCategory } from "../api/api-calls";
 import {
   AppAction,
   AppState,
@@ -17,11 +17,11 @@ export const loadCategories = async (dispatch: React.Dispatch<AppAction>) => {
   }
 };
 
-export const loadFoods = async (
+export const loadFoodsByCategory = async (
   dispatch: React.Dispatch<AppAction>,
   appState: AppState
 ) => {
-  const response = await fetchFoods(
+  const response = await fetchFoodsByCategory(
     appState.selectedCategoryId,
     appState.selectedPage,
     10

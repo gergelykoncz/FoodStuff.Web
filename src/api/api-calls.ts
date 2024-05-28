@@ -17,13 +17,18 @@ export const baseGet = async <T>(path: string): Promise<ApiCallResult<T>> => {
 
 export const fetchCategories = async (): Promise<
   ApiCallResult<FoodCategoryDto[]>
-> => baseGet("FoodCategory");
+> => baseGet("foodCategory");
 
-export const fetchFoods = async (
+export const fetchFoodsByCategory = async (
   categoryId: number,
   currentPage: number,
   pageSize: number
 ): Promise<ApiCallResult<PagedFoodDto>> =>
-  baseGet(
-    `Food?categoryId=${categoryId}&page=${currentPage}&pageSize=${pageSize}`
-  );
+  baseGet(`food/category/${categoryId}/${currentPage}/${pageSize}`);
+
+export const fetchFoodsBySearchTerm = async (
+  searchTerm: string,
+  currentPage: number,
+  pageSize: number
+): Promise<ApiCallResult<PagedFoodDto>> =>
+  baseGet(`food/search/${searchTerm}/${currentPage}/${pageSize}`);

@@ -1,4 +1,8 @@
-import { fetchCategories, fetchFoods } from "./api-calls";
+import {
+  fetchCategories,
+  fetchFoodsByCategory,
+  fetchFoodsBySearchTerm,
+} from "./api-calls";
 
 var fetchMock: jest.Mock;
 
@@ -21,7 +25,7 @@ describe("apiCalls", () => {
         test: 1,
       });
       expect(fetchMock).toHaveBeenLastCalledWith(
-        expect.stringContaining("FoodCategory")
+        expect.stringContaining("foodCategory")
       );
     });
 
@@ -34,22 +38,22 @@ describe("apiCalls", () => {
         error: true,
       });
       expect(fetchMock).toHaveBeenLastCalledWith(
-        expect.stringContaining("FoodCategory")
+        expect.stringContaining("foodCategory")
       );
     });
   });
 
-  describe("fetchFoods", () => {
+  describe("fetchFoodsByCategory", () => {
     test("it should call the api", async () => {
       fetchMock.mockResolvedValueOnce({
         json: () => Promise.resolve({ test: 1 }),
       });
-      const result = await fetchFoods(0, 0, 10);
+      const result = await fetchFoodsByCategory(0, 0, 10);
       expect(result.result).toEqual({
         test: 1,
       });
       expect(fetchMock).toHaveBeenLastCalledWith(
-        expect.stringContaining("Food?categoryId=0&page=0&pageSize=10")
+        expect.stringContaining("food/category/0/0/10")
       );
     });
 
@@ -57,12 +61,40 @@ describe("apiCalls", () => {
       fetchMock.mockRejectedValueOnce({
         error: true,
       });
-      const result = await fetchFoods(0, 0, 10);
+      const result = await fetchFoodsByCategory(0, 0, 10);
       expect(result.error).toEqual({
         error: true,
       });
       expect(fetchMock).toHaveBeenLastCalledWith(
-        expect.stringContaining("Food?categoryId=0&page=0&pageSize=10")
+        expect.stringContaining("food/category/0/0/10")
+      );
+    });
+  });
+
+  describe("fetchFoodsBySearchTerm", () => {
+    test("it should call the api", async () => {
+      fetchMock.mockResolvedValueOnce({
+        json: () => Promise.resolve({ test: 1 }),
+      });
+      const result = await fetchFoodsBySearchTerm("hello", 0, 10);
+      expect(result.result).toEqual({
+        test: 1,
+      });
+      expect(fetchMock).toHaveBeenLastCalledWith(
+        expect.stringContaining("food/search/hello/0/10")
+      );
+    });
+
+    test("it should handle failure", async () => {
+      fetchMock.mockRejectedValueOnce({
+        error: true,
+      });
+      const result = await fetchFoodsBySearchTerm("hello", 0, 10);
+      expect(result.error).toEqual({
+        error: true,
+      });
+      expect(fetchMock).toHaveBeenLastCalledWith(
+        expect.stringContaining("food/search/hello/0/10")
       );
     });
   });

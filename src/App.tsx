@@ -8,7 +8,7 @@ import {
   foodPageSelected,
   initialAppState,
 } from "./state";
-import { loadCategories, loadFoods } from "./services/food.service";
+import { loadCategories, loadFoodsByCategory } from "./services/food.service";
 
 function App() {
   const [appState, dispatch] = useReducer(appReducer, initialAppState);
@@ -18,7 +18,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    loadFoods(dispatch, appState);
+    loadFoodsByCategory(dispatch, appState);
   }, [appState.selectedCategoryId, appState.selectedPage]);
 
   const onCategorySelected = useCallback(
