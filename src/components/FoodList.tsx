@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { PagedFoodDto } from "../types/paged-food.dto";
 import Pager from "./Pager";
 
@@ -12,14 +13,14 @@ export default function FoodList({
   hasError,
   onSetPage,
 }: FoodListProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="food-list">
-      <h3>Foods</h3>
+      <h3>{t("foods")}</h3>
 
       {hasError ? (
-        <div data-testid="food-list-error">
-          There was an error retrieving the food items
-        </div>
+        <div data-testid="food-list-error">{t("foods_error")}</div>
       ) : (
         <>
           {pagedFoods.foods.map((f) => (

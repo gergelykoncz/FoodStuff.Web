@@ -1,4 +1,5 @@
 import { useEffect, useState, memo } from "react";
+import { useTranslation } from "react-i18next";
 import { FoodCategoryDto } from "../types/food-category.dto";
 
 type CategoryListProps = {
@@ -14,6 +15,7 @@ function CategoryList({
   onCategorySelected,
   onRetry,
 }: CategoryListProps) {
+  const { t } = useTranslation();
   const [filter, setFilter] = useState(categories);
 
   useEffect(() => setFilter(categories), [categories]);
@@ -33,18 +35,18 @@ function CategoryList({
 
   return (
     <div className="category-list">
-      <h3>Categories</h3>
+      <h3>{t("categories")}</h3>
       <input
         type="search"
-        placeholder="Search"
+        placeholder={t("search")}
         onChange={onFilter}
         disabled={hasError}
       />
 
       {hasError ? (
         <div>
-          <div>There was an error retrieving the food category list</div>
-          <button onClick={() => onRetry()}>Retry loading</button>
+          <div>{t("categories_error")}</div>
+          <button onClick={() => onRetry()}>{t("retry_loading")}</button>
         </div>
       ) : (
         filter.map((c) => (

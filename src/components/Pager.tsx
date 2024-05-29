@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 type PagerProps = {
   count: number;
   currentPage: number;
@@ -11,6 +13,7 @@ export default function Pager({
   pageSize,
   onSetPage,
 }: PagerProps) {
+  const { t } = useTranslation();
   const numberOfPages = Math.ceil(count / pageSize);
   const pageArray = new Array(numberOfPages).fill(0);
   return (
@@ -20,7 +23,7 @@ export default function Pager({
         disabled={currentPage === 0}
         onClick={() => onSetPage(currentPage - 1)}
       >
-        Prev
+        {t("previous")}
       </button>
       {pageArray.map((_, i) => (
         <div
@@ -37,7 +40,7 @@ export default function Pager({
         disabled={numberOfPages <= currentPage + 1}
         onClick={() => onSetPage(currentPage + 1)}
       >
-        Next
+        {t("next")}
       </button>
     </div>
   );
