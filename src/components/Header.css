@@ -1,0 +1,16 @@
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media screen and (max-width: 30em) {
+    flex-direction: column;
+  }
+}
+
+.app-header-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}

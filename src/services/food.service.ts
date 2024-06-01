@@ -1,4 +1,8 @@
-import { fetchCategories, fetchFoodsByCategory } from "../api/api-calls";
+import {
+  fetchCategories,
+  fetchFoodsByCategory,
+  fetchFoodsBySearchTerm,
+} from "../api/api-calls";
 import {
   AppAction,
   AppState,
@@ -21,11 +25,20 @@ export const loadFoodsByCategory = async (
   dispatch: React.Dispatch<AppAction>,
   appState: AppState
 ) => {
-  const response = await fetchFoodsByCategory(
-    appState.selectedCategoryId,
-    appState.selectedPage,
-    10
-  );
+  let response;
+  if (appState.searchQuery) {
+    response = await fetchFoodsBySearchTerm(
+      appState.searchQuery,
+      appState.selectedPage,
+      10
+    );
+  } else {
+    response = await fetchFoodsByCategory(
+      appState.selectedCategoryId,
+      appState.selectedPage,
+      10
+    );
+  }
   if (response.error || !response.result) {
     dispatch(foodsCallFailed());
   } else {

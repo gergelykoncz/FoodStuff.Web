@@ -2,7 +2,7 @@
   text-align: left;
 }
 
-.App {
+.app-content {
   display: flex;
   flex-direction: row;
 }

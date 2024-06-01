@@ -2,11 +2,13 @@ import { useCallback, useEffect, useReducer } from "react";
 import "./App.css";
 import CategoryList from "./components/CategoryList";
 import FoodList from "./components/FoodList";
+import Header from "./components/Header";
 import {
   appReducer,
   categorySelected,
   foodPageSelected,
   initialAppState,
+  searchQueryUpdated,
 } from "./state";
 import { loadCategories, loadFoodsByCategory } from "./services/food.service";
 
@@ -19,7 +21,11 @@ function App() {
 
   useEffect(() => {
     loadFoodsByCategory(dispatch, appState);
-  }, [appState.selectedCategoryId, appState.selectedPage]);
+  }, [
+    appState.selectedCategoryId,
+    appState.selectedPage,
+    appState.searchQuery,
+  ]);
 
   const onCategorySelected = useCallback(
     (e: number) => dispatch(categorySelected(e)),
@@ -28,20 +34,25 @@ function App() {
 
   const onPageSelected = (e: number) => dispatch(foodPageSelected(e));
 
+  const onSearch = (e: string | undefined) => dispatch(searchQueryUpdated(e));
+
   return (
     <div className="App">
-      <CategoryList
-        categories={appState.categories}
-        hasError={appState.isCategoriesCallFailed}
-        onCategorySelected={onCategorySelected}
-        onRetry={() => loadCategories(dispatch)}
-      />
+      <Header onSearch={onSearch} />
+      <div className="app-content">
+        <CategoryList
+          categories={appState.categories}
+          hasError={appState.isCategoriesCallFailed}
+          onCategorySelected={onCategorySelected}
+          onRetry={() => loadCategories(dispatch)}
+        />
 
-      <FoodList
-        hasError={appState.isFoodsCallFailed}
-        pagedFoods={appState.foods}
-        onSetPage={onPageSelected}
-      />
+        <FoodList
+          hasError={appState.isFoodsCallFailed}
+          pagedFoods={appState.foods}
+          onSetPage={onPageSelected}
+        />
+      </div>
     </div>
   );
 }

@@ -7,4 +7,6 @@ export const en = {
   foods: "Foods",
   next: "Next",
   previous: "Previous",
+  find_foods: "Find foods",
+  food_stuff: "Food Stuff",
 };

@@ -7,6 +7,7 @@ export interface AppState {
   selectedPage: number;
   isCategoriesCallFailed: boolean;
   isFoodsCallFailed: boolean;
+  searchQuery?: string;
 }
 
 export const initialAppState: AppState = {
@@ -21,4 +22,5 @@ export const initialAppState: AppState = {
   selectedPage: 0,
   isCategoriesCallFailed: false,
   isFoodsCallFailed: false,
+  searchQuery: undefined,
 };

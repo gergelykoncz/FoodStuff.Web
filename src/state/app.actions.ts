@@ -12,7 +12,8 @@ export type ActionTypes =
   | "PAGED_FOODS_FETCHED"
   | "FOOD_PAGE_SELECTED"
   | "CATEGORIES_CALL_FAILED"
-  | "FOODS_CALL_FAILED";
+  | "FOODS_CALL_FAILED"
+  | "SEARCH_QUERY_UPDATED";
 
 export const categoriesFetched = (
   categories: FoodCategoryDto[]
@@ -51,4 +52,11 @@ export const foodsCallFailed = (): AppAction => ({
 export const foodPageSelected = (selectedPage: number): AppAction => ({
   type: "FOOD_PAGE_SELECTED",
   payload: { selectedPage: Math.max(0, selectedPage) },
+});
+
+export const searchQueryUpdated = (
+  searchQuery: string | undefined
+): AppAction => ({
+  type: "SEARCH_QUERY_UPDATED",
+  payload: { searchQuery, selectedPage: 0 },
 });

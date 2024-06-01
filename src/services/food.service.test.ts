@@ -8,6 +8,7 @@ var pagedFoodsFetched: jest.Mock;
 
 var fetchCategories: jest.Mock;
 var fetchFoodsByCategory: jest.Mock;
+var fetchFoodsBySearchTerm: jest.Mock;
 
 jest.mock("../state", () => {
   categoriesCallFailed = jest.fn();
@@ -26,10 +27,12 @@ jest.mock("../state", () => {
 jest.mock("../api/api-calls", () => {
   fetchCategories = jest.fn();
   fetchFoodsByCategory = jest.fn();
+  fetchFoodsBySearchTerm = jest.fn();
 
   return {
     fetchCategories,
     fetchFoodsByCategory,
+    fetchFoodsBySearchTerm,
   };
 });
 
@@ -70,10 +73,20 @@ describe("loadFoodsByCategory", () => {
     expect(dispatchSpy).toHaveBeenCalledWith("big error");
   });
 
-  it("should dispatch the success action", async () => {
+  it("should fetch foods by category by default", async () => {
     fetchFoodsByCategory.mockResolvedValue({ result: [] });
     pagedFoodsFetched.mockReturnValueOnce("pagedFoodsFetched");
     await loadFoodsByCategory(dispatchSpy, {} as AppState);
+    expect(pagedFoodsFetched).toHaveBeenCalled();
+    expect(dispatchSpy).toHaveBeenCalledWith("pagedFoodsFetched");
+  });
+
+  it("should fetch foods by category search term if defined", async () => {
+    fetchFoodsBySearchTerm.mockResolvedValue({ result: [] });
+    pagedFoodsFetched.mockReturnValueOnce("pagedFoodsFetched");
+    await loadFoodsByCategory(dispatchSpy, {
+      searchQuery: "hello",
+    } as AppState);
     expect(pagedFoodsFetched).toHaveBeenCalled();
     expect(dispatchSpy).toHaveBeenCalledWith("pagedFoodsFetched");
   });

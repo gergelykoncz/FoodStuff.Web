@@ -9,6 +9,7 @@ export const appReducer = (state: AppState, action: AppAction): AppState => {
     case "FOOD_PAGE_SELECTED":
     case "CATEGORIES_CALL_FAILED":
     case "FOODS_CALL_FAILED":
+    case "SEARCH_QUERY_UPDATED":
       return { ...state, ...action.payload };
     default:
       return state;
