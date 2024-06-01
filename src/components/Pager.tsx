@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { generateLogarithmicPages } from "../utils";
 
 type PagerProps = {
   count: number;
@@ -15,7 +16,8 @@ export default function Pager({
 }: PagerProps) {
   const { t } = useTranslation();
   const numberOfPages = Math.ceil(count / pageSize);
-  const pageArray = new Array(numberOfPages).fill(0);
+  const pageArray = generateLogarithmicPages(numberOfPages, currentPage + 1, 4);
+
   return (
     <div className="pager">
       <button
@@ -25,16 +27,20 @@ export default function Pager({
       >
         {t("previous")}
       </button>
-      {pageArray.map((_, i) => (
-        <div
-          data-testid="pager-page-item"
-          className={currentPage === i ? "selected" : ""}
-          key={i}
-          onClick={() => onSetPage(i)}
-        >
-          {i + 1}
-        </div>
-      ))}
+      {pageArray.map((i) =>
+        typeof i === "number" ? (
+          <div
+            data-testid="pager-page-item"
+            className={currentPage === i ? "selected" : ""}
+            key={i}
+            onClick={() => typeof i === "number" && onSetPage(i)}
+          >
+            {i + 1}
+          </div>
+        ) : (
+          <div>{i}</div>
+        )
+      )}
       <button
         data-testid="pager-next"
         disabled={numberOfPages <= currentPage + 1}

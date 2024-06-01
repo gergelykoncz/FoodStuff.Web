@@ -10,7 +10,7 @@ describe("Pager", () => {
 
       const items = await sut.findAllByTestId("pager-page-item");
 
-      expect(items.length).toEqual(10);
+      expect(items.length).toEqual(7);
     });
 
     test("it should dispatch the proper event", async () => {
