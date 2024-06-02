@@ -1,0 +1,26 @@
+@import "../scss/utils";
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @include to-tablet {
+    flex-direction: column;
+  }
+
+  &-search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+
+    label {
+      display: block;
+
+      @include to-tablet {
+        display: none;
+      }
+    }
+  }
+}

@@ -1,6 +1,5 @@
+import "./App.scss";
 import { useCallback, useEffect, useReducer } from "react";
-import "./App.css";
-import CategoryList from "./components/CategoryList";
 import FoodList from "./components/FoodList";
 import Header from "./components/Header";
 import {
@@ -37,16 +36,9 @@ function App() {
   const onSearch = (e: string | undefined) => dispatch(searchQueryUpdated(e));
 
   return (
-    <div className="App">
+    <div className="app">
       <Header onSearch={onSearch} />
       <div className="app-content">
-        <CategoryList
-          categories={appState.categories}
-          hasError={appState.isCategoriesCallFailed}
-          onCategorySelected={onCategorySelected}
-          onRetry={() => loadCategories(dispatch)}
-        />
-
         <FoodList
           hasError={appState.isFoodsCallFailed}
           pagedFoods={appState.foods}

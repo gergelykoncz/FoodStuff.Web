@@ -1,5 +1,5 @@
+import "./Header.scss";
 import { useTranslation } from "react-i18next";
-import "./Header.css";
 import { FormEvent } from "react";
 
 type HeaderProps = {

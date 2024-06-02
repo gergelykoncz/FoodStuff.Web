@@ -1,0 +1,38 @@
+@import "../scss/utils";
+
+.app-pager {
+  display: flex;
+
+  @include to-tablet {
+    justify-content: space-between;
+  }
+
+  button {
+    &:not(:disabled) {
+      cursor: pointer;
+    }
+
+    .to-tablet {
+      display: none;
+    }
+
+    @include to-tablet {
+      .from-tablet {
+        display: none;
+      }
+      .to-tablet {
+        display: block;
+      }
+    }
+  }
+
+  div {
+    margin: 0.25rem;
+    cursor: pointer;
+
+    &:hover,
+    &.selected {
+      font-weight: 700;
+    }
+  }
+}

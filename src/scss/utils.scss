@@ -1,0 +1,5 @@
+@mixin to-tablet() {
+  @media screen and (max-width: 30rem) {
+    @content;
+  }
+}

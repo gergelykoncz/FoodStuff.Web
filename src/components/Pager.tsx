@@ -1,3 +1,4 @@
+import "./Pager.scss";
 import { useTranslation } from "react-i18next";
 import { generateLogarithmicPages } from "../utils";
 
@@ -19,13 +20,15 @@ export default function Pager({
   const pageArray = generateLogarithmicPages(numberOfPages, currentPage + 1, 4);
 
   return (
-    <div className="pager">
+    <div className="app-pager">
       <button
         data-testid="pager-previous"
+        className="app-pager-previous"
         disabled={currentPage === 0}
         onClick={() => onSetPage(currentPage - 1)}
       >
-        {t("previous")}
+        <span className="from-tablet">{t("previous")}</span>
+        <span className="to-tablet">&lt;</span>
       </button>
       {pageArray.map((i) =>
         typeof i === "number" ? (
@@ -38,15 +41,17 @@ export default function Pager({
             {i + 1}
           </div>
         ) : (
-          <div>{i}</div>
+          <div key={i}>{i}</div>
         )
       )}
       <button
         data-testid="pager-next"
+        className="app-pager-next"
         disabled={numberOfPages <= currentPage + 1}
         onClick={() => onSetPage(currentPage + 1)}
       >
-        {t("next")}
+        <span className="from-tablet">{t("next")}</span>
+        <span className="to-tablet">&gt;</span>
       </button>
     </div>
   );
