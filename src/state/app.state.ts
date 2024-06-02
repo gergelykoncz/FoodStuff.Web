@@ -8,6 +8,7 @@ export interface AppState {
   isCategoriesCallFailed: boolean;
   isFoodsCallFailed: boolean;
   searchQuery?: string;
+  isFoodsCallInProgress: boolean;
 }
 
 export const initialAppState: AppState = {
@@ -23,4 +24,5 @@ export const initialAppState: AppState = {
   isCategoriesCallFailed: false,
   isFoodsCallFailed: false,
   searchQuery: undefined,
+  isFoodsCallInProgress: false,
 };

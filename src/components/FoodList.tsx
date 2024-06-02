@@ -1,9 +1,13 @@
+/// <reference types="vite-plugin-svgr/client" />
+
 import { useTranslation } from "react-i18next";
 import { PagedFoodDto } from "../types/paged-food.dto";
 import Pager from "./Pager";
+import Loader from "../svg/loader-bars.svg?react";
 
 type FoodListProps = {
   hasError: boolean;
+  isLoading: boolean;
   pagedFoods: PagedFoodDto;
   onSetPage: (e: number) => void;
 };
@@ -11,6 +15,7 @@ type FoodListProps = {
 export default function FoodList({
   pagedFoods,
   hasError,
+  isLoading,
   onSetPage,
 }: FoodListProps) {
   const { t } = useTranslation();
@@ -36,6 +41,8 @@ export default function FoodList({
               onSetPage={onSetPage}
             />
           </div>
+
+          {isLoading && <Loader />}
         </>
       )}
     </div>

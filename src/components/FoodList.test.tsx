@@ -7,6 +7,7 @@ describe("FoodList", () => {
     const sut = render(
       <FoodList
         hasError={true}
+        isLoading={false}
         pagedFoods={{} as unknown as PagedFoodDto}
         onSetPage={jest.fn()}
       />
@@ -30,7 +31,12 @@ describe("FoodList", () => {
     };
 
     const sut = render(
-      <FoodList hasError={false} pagedFoods={mockData} onSetPage={jest.fn()} />
+      <FoodList
+        hasError={false}
+        isLoading={false}
+        pagedFoods={mockData}
+        onSetPage={jest.fn()}
+      />
     );
 
     const pager = await sut.findByTestId("food-list-pager");

@@ -24,7 +24,7 @@ export const categoriesFetched = (
 
 export const pagedFoodsFetched = (foods: PagedFoodDto): AppAction => ({
   type: "PAGED_FOODS_FETCHED",
-  payload: { foods, isFoodsCallFailed: false },
+  payload: { foods, isFoodsCallFailed: false, isFoodsCallInProgress: false },
 });
 
 export const categorySelected = (selectedCategoryId: number): AppAction => ({
@@ -46,17 +46,21 @@ export const foodsCallFailed = (): AppAction => ({
   type: "FOODS_CALL_FAILED",
   payload: {
     isFoodsCallFailed: true,
+    isFoodsCallInProgress: false,
   },
 });
 
 export const foodPageSelected = (selectedPage: number): AppAction => ({
   type: "FOOD_PAGE_SELECTED",
-  payload: { selectedPage: Math.max(0, selectedPage) },
+  payload: {
+    selectedPage: Math.max(0, selectedPage),
+    isFoodsCallInProgress: true,
+  },
 });
 
 export const searchQueryUpdated = (
   searchQuery: string | undefined
 ): AppAction => ({
   type: "SEARCH_QUERY_UPDATED",
-  payload: { searchQuery, selectedPage: 0 },
+  payload: { searchQuery, selectedPage: 0, isFoodsCallInProgress: true },
 });

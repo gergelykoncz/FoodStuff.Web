@@ -41,6 +41,7 @@ function App() {
       <div className="app-content">
         <FoodList
           hasError={appState.isFoodsCallFailed}
+          isLoading={appState.isFoodsCallInProgress}
           pagedFoods={appState.foods}
           onSetPage={onPageSelected}
         />
