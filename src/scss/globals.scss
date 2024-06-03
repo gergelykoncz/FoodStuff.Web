@@ -1,0 +1,42 @@
+body {
+  background-color: #f3eeea;
+  color: #776b5d;
+
+  @media (prefers-color-scheme: dark) {
+    color: #f3eeea;
+    background-color: #776b5d;
+  }
+}
+
+button {
+  border: 1px solid #776b5d;
+  border-radius: 0.3rem;
+  background-color: #ebe3d5;
+  color: #776b5d;
+  font-size: 1rem;
+  padding: 0.5rem;
+
+  &:not(:disabled) {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &[type="submit"] {
+    color: #f6e6c2;
+    background-color: #ff5f00;
+    font-weight: 700;
+  }
+}
+
+input[type="text"],
+input[type="search"] {
+  border: 1px solid #776b5d;
+  border-radius: 0.3rem;
+  background-color: #ebe3d5;
+  font-size: 1rem;
+  padding: 0.5rem;
+}
