@@ -1,5 +1,6 @@
 /// <reference types="vite-plugin-svgr/client" />
 
+import "./FoodList.scss";
 import { useTranslation } from "react-i18next";
 import { PagedFoodDto } from "../types/paged-food.dto";
 import Pager from "./Pager";
@@ -21,7 +22,7 @@ export default function FoodList({
   const { t } = useTranslation();
 
   return (
-    <div className="food-list">
+    <div className="app-food-list">
       <h3>{t("foods")}</h3>
 
       {hasError ? (
@@ -33,7 +34,7 @@ export default function FoodList({
               {f.name}
             </div>
           ))}
-          <div data-testid="food-list-pager">
+          <div data-testid="food-list-pager" className="app-food-list-pager">
             <Pager
               count={pagedFoods.count}
               currentPage={pagedFoods.currentPage}

@@ -1,4 +1,9 @@
+html {
+  height: 100%;
+}
+
 body {
+  height: 100%;
   background-color: #f3eeea;
   color: #776b5d;
 
@@ -6,6 +11,10 @@ body {
     color: #f3eeea;
     background-color: #776b5d;
   }
+}
+
+#root {
+  height: 100%;
 }
 
 button {
